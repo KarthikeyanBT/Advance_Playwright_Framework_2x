@@ -38,7 +38,7 @@ export class DataGenerator {
 
     /** Random username, e.g. "Otilia35". */
     static username(): string {
-        return faker.internet.userName();
+        return faker.internet.username();
     }
 
     /**

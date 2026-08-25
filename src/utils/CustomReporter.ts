@@ -967,7 +967,7 @@ class CustomTTAReporter implements Reporter {
         }
         const r = this.flakyResult;
         const flakyList = r.flaky.length
-            ? r.flaky.map((t) => `<div class="flaky-item">🔁 ${this.escapeHtml(t)}</div>`).join('')
+            ? r.flaky.map((testName: string) => `<div class="flaky-item">🔁 ${this.escapeHtml(testName)}</div>`).join('')
             : `<div class="ai-empty">No flaky tests — statuses were consistent across both builds.</div>`;
         const summary = r.summary
             ? `<div class="flaky-summary"><strong>🤖 AI summary:</strong> ${this.escapeHtml(r.summary)}</div>`
@@ -997,7 +997,7 @@ class CustomTTAReporter implements Reporter {
     private renderVerdictCard(v: { test: string; file: string; verdict: RcaVerdict }): string {
         const sevClass = `sev-${v.verdict.severity.toLowerCase()}`;
         const fixes = v.verdict.fixes.length
-            ? v.verdict.fixes.map((f) => `<li>${this.escapeHtml(f)}</li>`).join('')
+            ? v.verdict.fixes.map((fix: string) => `<li>${this.escapeHtml(fix)}</li>`).join('')
             : '<li>No fix suggestions returned.</li>';
         return `
         <div class="ai-card">

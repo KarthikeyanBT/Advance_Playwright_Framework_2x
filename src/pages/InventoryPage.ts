@@ -3,7 +3,7 @@ import { Page } from '@playwright/test';
 
 export default class InventoryPage extends BasePage {
     constructor(page: Page) {
-        super(page);
+        super(page, 'InventoryPage');
     }
 
     async openItemByName(name: string) {
