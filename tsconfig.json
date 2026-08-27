@@ -2,7 +2,6 @@
     "compilerOptions": {
         "target": "ES2022",
         "module": "commonjs",
-        "moduleResolution": "node",
         "lib": [
             "ES2022"
         ],
@@ -14,25 +13,24 @@
         "strict": true,
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
-        "baseUrl": ".",
         "paths": {
             "@api/*": [
-                "src/api/*"
+                "./src/api/*"
             ],
             "@config/*": [
-                "src/config/*"
+                "./src/config/*"
             ],
             "@fixtures/*": [
-                "src/fixtures/*"
+                "./src/fixtures/*"
             ],
             "@pages/*": [
-                "src/pages/*"
+                "./src/pages/*"
             ],
             "@testdata/*": [
-                "src/testdata/*"
+                "./src/testdata/*"
             ],
             "@utils/*": [
-                "src/utils/*"
+                "./src/utils/*"
             ]
         }
     },

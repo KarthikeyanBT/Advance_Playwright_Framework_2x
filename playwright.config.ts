@@ -5,7 +5,7 @@ dotenv.config();
 
 function resolveBaseURL(): string {
   if (process.env.BASE_URL) return process.env.BASE_URL;
-  const env = (process.env.TTA_ENV || 'qa').toLowerCase();
+  const env = (process.env.TTA_ENV || 'staging').toLowerCase();
   switch (env) {
     case 'api':
       return process.env.API_BASE_URL || 'https://restful-booker.herokuapp.com';

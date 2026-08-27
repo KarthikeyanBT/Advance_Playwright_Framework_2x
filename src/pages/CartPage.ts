@@ -1,16 +1,52 @@
-import BasePage from './BasePage';
-import { Page } from '@playwright/test';
+﻿import { expect, Locator, Page } from '@playwright/test';
+import { BasePage } from './BasePage';
 
-export default class CartPage extends BasePage {
+export class CartPage extends BasePage {
+    static readonly PATH = '/playwright/ttacart/cart.html';
+
+    private readonly title: Locator;
+    private readonly itemRows: Locator;
+    private readonly itemNames: Locator;
+    private readonly continueShoppingLink: Locator;
+    private readonly checkoutButton: Locator;
+
     constructor(page: Page) {
-        super(page);
+        super(page, 'CartPage');
+        this.title = page.locator('[data-test="title"]');
+        this.itemRows = page.locator('[data-test="inventory-item"]');
+        this.itemNames = page.locator('[data-test="inventory-item-name"]');
+        this.continueShoppingLink = page.locator('[data-test="continue-shopping"]');
+        this.checkoutButton = page.locator('[data-test="checkout"]');
     }
 
-    async proceedToCheckout() {
-        await this.page.click('#checkout');
+    async open(): Promise<void> {
+        await this.goto(CartPage.PATH);
+        await this.assertLoaded();
     }
 
-    async getCartItems() {
-        return this.page.$$eval('.cart_item', items => items.map(i => i.textContent?.trim()));
+    async assertLoaded(): Promise<void> {
+        await expect(this.title).toContainText('Your Cart');
+    }
+
+    async itemNamesList(): Promise<string[]> {
+        return this.el.getAllTexts(this.itemNames);
+    }
+
+    async rowCount(): Promise<number> {
+        return this.itemRows.count();
+    }
+
+    async remove(id: string): Promise<void> {
+        await this.el.click(this.page.locator(`[data-test="remove-${id}"]`));
+    }
+
+    async continueShopping(): Promise<void> {
+        await this.el.click(this.continueShoppingLink);
+        await this.page.waitForLoadState('domcontentloaded');
+    }
+
+    async checkout(): Promise<void> {
+        await this.el.click(this.checkoutButton);
+        await this.page.waitForLoadState('domcontentloaded');
     }
 }
